@@ -11,5 +11,5 @@ class BSTTests(unittest.TestCase):
         self.assertEqual(True, example_fun(34))
         self.assertEqual(False,example_fun(1423))
 
-if (__name__ == '__main__'):
+if __name__ == '__main__':
     unittest.main()
