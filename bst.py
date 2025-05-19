@@ -2,6 +2,8 @@ import sys
 import unittest
 from typing import *
 from dataclasses import dataclass
+import random
+import time
 sys.setrecursionlimit(10**6)
 
 def example_fun(x : int) -> bool:
@@ -94,3 +96,40 @@ def delete(bst: frozenBinarySearchTree, value: Any) -> frozenBinarySearchTree:
     new_tree = delete_helper(bst.tree, value, bst.comes_before)
     return frozenBinarySearchTree(bst.comes_before, new_tree)
 
+#
+def test_bst_performance():
+    sizes = [100_000 * i for i in range(1, 11)]  # 100K to 1M
+    insert_times = []
+    search_times = []
+
+    def comes_before(a, b):
+        return a < b
+
+    for size in sizes:
+        values = [random.random() for _ in range(size)]
+        bst = frozenBinarySearchTree(comes_before, None)
+
+        # Time insertion
+        start = time.perf_counter()
+        for v in values:
+            bst = insert(bst, v)
+        end = time.perf_counter()
+        insert_time = end - start
+        insert_times.append(insert_time)
+
+        # Time search (search for random values not in the tree)
+        search_values = [random.random() for _ in range(1000)]
+        start = time.perf_counter()
+        for v in search_values:
+            lookup(bst, v)
+        end = time.perf_counter()
+        search_time = end - start
+        search_times.append(search_time)
+
+        # Print result for this size
+        print(f"Size: {size:>7,} | Insert Time: {insert_time:.4f} sec | Search Time: {search_time:.4f} sec")
+
+    return sizes, insert_times, search_times
+
+if __name__ == "__main__":
+    test_bst_performance()
