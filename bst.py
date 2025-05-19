@@ -82,7 +82,7 @@ def delete(bst: frozenBinarySearchTree, value: Any) -> frozenBinarySearchTree:
                 return b.left
             
             Tree = find_min(b.right)
-            right = delete_helper(b.right, Tree, comes_before)
+            delete_helper(b.right, Tree, comes_before)
             return Node(Tree, b.left, b.right)
         elif comes_before(b, b.element):
             left = delete_helper(b.left, v, comes_before)
