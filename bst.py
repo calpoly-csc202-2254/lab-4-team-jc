@@ -8,7 +8,7 @@ sys.setrecursionlimit(10**6)
 def example_fun(x : int) -> bool:
     return x < 142
 
-## Data Definitions
+# Data Definitions
 BinTree = Union['Node', None]
 
 @dataclass(frozen=True)
@@ -46,10 +46,10 @@ def insert(bst: frozenBinarySearchTree, value: Any) -> frozenBinarySearchTree:
     new_tree = insert_helper(bst.tree, value, bst.comes_before)
     return frozenBinarySearchTree(bst.comes_before, new_tree)
 
-# -- 
 
 # Function #3 
-# PS: 
+# PS: Checks whether a given value exists in a binary search tree by using comes_before
+# comparison, two values are considered equal if neither comes before the other
 def lookup(bst: frozenBinarySearchTree, value: Any) -> bool:
     def lookup_helper(b: BinTree, v: Any, comes_before: Callable[[Any, Any], bool]) -> bool:
         if b is None:
@@ -64,13 +64,12 @@ def lookup(bst: frozenBinarySearchTree, value: Any) -> bool:
 
 
 # Function 4
-# PS: 
+# PS: Removes a value from the binary search tree (if it exists)
+# while keeping the tree's structure the same
 def find_min(b: BinTree) -> Any: 
     if b.left is None:
         return b.element
     return find_min(b.left)
-
-
 
 def delete(bst: frozenBinarySearchTree, value: Any) -> frozenBinarySearchTree:
     def delete_helper(b: BinTree, v: Any, comes_before: Callable[[Any, Any], bool]) -> BinTree:
@@ -95,7 +94,15 @@ def delete(bst: frozenBinarySearchTree, value: Any) -> frozenBinarySearchTree:
     new_tree = delete_helper(bst.tree, value, bst.comes_before)
     return frozenBinarySearchTree(bst.comes_before, new_tree)
 
-#
+
+
+
+
+
+
+
+
+#Functions for Graph Values
 def test_bst_performance():
     sizes = [100_000 * i for i in range(1, 11)]  # 100K to 1M
     insert_times = []
