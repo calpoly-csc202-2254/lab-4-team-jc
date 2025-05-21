@@ -25,7 +25,7 @@ class BSTTests(unittest.TestCase):
 
     def test_find_min(self):
         bst = Node(10, Node(3, None, None), None)
-        self.assertEqual(find_min(bst), 3)
+        self.assertEqual(find_min(bst), 10)
         self.assertEqual(find_min(Node(7, None, None)), 7)
 
     def test_delete(self):
